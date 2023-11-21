@@ -5,7 +5,6 @@
 <div class="container">
   <h2>Profile of {{ user.username }}</h2>
 
-  <!-- Форма оновлення профілю -->
   <form method="post">
     {% csrf_token %}
     <div class="form-group">
@@ -24,10 +23,29 @@
   </form>
 
   <h3>Statistics</h3>
-  <ul>
-    <li>Page Transitions: {{ user_stats.page_transitions }}</li>
-    <li>Data Uploaded: {{ user_stats.data_uploaded }} bytes</li>
-    <li>Data Downloaded: {{ user_stats.data_downloaded }} bytes</li>
-  </ul>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Site Name</th>
+        <th>Page Transitions</th>
+        <th>Data Uploaded</th>
+        <th>Data Downloaded</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for stat in user_stats %}
+        <tr>
+          <td>{{ stat.site_url }}</td>
+          <td>{{ stat.page_transitions }}</td>
+          <td>{{ stat.data_sent }} bytes</td>
+          <td>{{ stat.data_received }} bytes</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">No statistics available.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}
