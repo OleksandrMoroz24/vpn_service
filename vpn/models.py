@@ -11,12 +11,12 @@ class UserSite(models.Model):
         return f"{self.name} - {self.url}"
 
 
-class UserActivity(models.Model):
+class VpnUsageStatistics(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     site_url = models.URLField()
-    page_transitions = models.PositiveIntegerField(default=0)
-    data_uploaded = models.PositiveIntegerField(default=0)
-    data_downloaded = models.PositiveIntegerField(default=0)
+    page_transitions = models.IntegerField(default=0)
+    data_sent = models.BigIntegerField(default=0)  # in bytes
+    data_received = models.BigIntegerField(default=0)  # in bytes
 
     def __str__(self):
         return f"{self.user.username} - {self.site_url}"
