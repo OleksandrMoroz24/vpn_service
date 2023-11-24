@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from vpn.models import UserSite, VpnUsageStatistics
+
+admin.site.register(UserSite)
+admin.site.register(VpnUsageStatistics)
